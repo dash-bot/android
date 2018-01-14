@@ -2,12 +2,13 @@ package dashbot.teamcraps.com.dashbot;
 
 import android.app.Activity;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.microsoft.cognitiveservices.speechrecognition.ISpeechRecognitionServerEvents;
 import com.microsoft.cognitiveservices.speechrecognition.MicrophoneRecognitionClient;
 import com.microsoft.cognitiveservices.speechrecognition.RecognitionResult;
 import com.microsoft.cognitiveservices.speechrecognition.SpeechRecognitionMode;
 import com.microsoft.cognitiveservices.speechrecognition.SpeechRecognitionServiceFactory;
+
+import java.io.IOException;
 
 /**
  * Created by shaebrown on 13/01/18.
@@ -50,12 +51,14 @@ public class SpeechRecognizerActivity extends Activity implements ISpeechRecogni
         this.micClient.endMicAndRecognition();
         this.responseResult.onSpeechEnd();
         String command = recognitionResult.Results[0].DisplayText;
+        String reply = null;
         try {
-            String reply = ConversationClient.getReply(command);
-            responseResult.onReply(reply);
-        } catch(UnirestException exception) {
-            //TODO
+            reply = ConversationClient.getReply(command);
+        } catch (IOException e) {
+            //TODO error handling
+            e.printStackTrace();
         }
+        responseResult.onReply(reply);
     }
 
     @Override
@@ -71,6 +74,6 @@ public class SpeechRecognizerActivity extends Activity implements ISpeechRecogni
 
     @Override
     public void onAudioEvent(boolean b) {
-        //TODO
+        // TODO
     }
 }
