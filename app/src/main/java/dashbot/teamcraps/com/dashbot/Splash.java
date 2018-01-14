@@ -24,10 +24,13 @@ public class Splash extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-
-
         // Set-up anything needs to be set up before running MainActivity here.
-        setUpAnimation();
+        mProgressBar = findViewById(R.id.main_progress);
+        mProgressBar.setBackgroundResource(R.drawable.progress);
+        animationDrawable = (AnimationDrawable)mProgressBar.getBackground();
+        mProgressBar.setVisibility(View.VISIBLE);
+        animationDrawable.start();
+
         setTimer(DELAY);
     }
 
@@ -45,12 +48,5 @@ public class Splash extends AppCompatActivity{
                 finish();
             }
         }, time);
-    }
-
-    private void setUpAnimation(){
-        mProgressBar.setBackgroundResource(R.drawable.progress);
-        animationDrawable = (AnimationDrawable)mProgressBar.getBackground();
-        mProgressBar.setVisibility(View.VISIBLE);
-        animationDrawable.start();
     }
 }
