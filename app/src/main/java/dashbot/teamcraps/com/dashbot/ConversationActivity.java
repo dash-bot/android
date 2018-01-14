@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,23 @@ public class ConversationActivity extends AppCompatActivity {
 
                     // Empty the input edit text box.
                     msgInputText.setText("");
+
+                    // Add a new sent message to the list.
+                    try {
+                        String reply = ConversationClient.getReply(msgContent);
+                        msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, reply);
+                        messageList.add(msgDto);
+
+                        newMsgPosition = messageList.size() - 1;
+
+                        // Notify recycler view insert one new data.
+                        chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
+
+                        // Scroll RecyclerView to the last message.
+                        mMessageRecycler.scrollToPosition(newMsgPosition);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
