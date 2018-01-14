@@ -1,80 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_page"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000">
+    android:layout_weight="1"
+    android:orientation="vertical">
 
-    <View
-        android:id="@+id/rectangle"
-        android:layout_width="411dp"
-        android:layout_height="78dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-24dp"
-        android:background="@drawable/blue_rectangle" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/rectangle"
-        android:layout_marginStart="24dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="@string/app_name"
-        android:textColor="@color/colorPrimary"
-        android:textSize="34sp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/rectangle"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="17dp"
-        app:srcCompat="@drawable/dashlogowhite" />
-
-    <View
-    android:id="@+id/my_money"
-    android:layout_width="411dp"
-    android:layout_height="36dp"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="54dp"
-    android:background="@drawable/grey_rectangle" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mainPage_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="75px"
+            android:layout_height="75px"
+            android:background="@drawable/dashlogowhite" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_marginRight="70px"
+            android:textSize="34sp"/>
+    </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/mainPage_myMoney_et"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/my_money"
         android:layout_centerHorizontal="true"
-        android:text="@string/my_money"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="My Money"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:id="@+id/mainPage_hsv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="29dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="@string/account_savings"
+        android:layout_gravity="left"
+        android:fillViewport="false"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/mainPage_savings_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="135dp"
+                android:layout_marginRight="130dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Savings Account"
+                    android:textColor="#000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="$2,000"
+                    android:textColor="#23BD20"
+                    android:textSize="49sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mainPage_chequings_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="100dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/mainPage_savings_ll"
+                app:layout_constraintStart_toEndOf="@+id/mainPage_savings_ll"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Chequings Account"
+                    android:textColor="#000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="$4,000"
+                    android:textColor="#23BD20"
+                    android:textSize="49sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/mainPage_contactUs_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Contact Us"
         android:textSize="20sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/email" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Email Us"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Phone Us"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/mainPage_contactUs_et2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Tools"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/etransfericon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="E-transfer"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transfericon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Transfer"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/script" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Pay Bills"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mainPage_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="24dp"
-        android:text="$2000"
-        android:textColor="@color/green"
-        android:textSize="49sp" />
-
-
-</RelativeLayout>
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/fab"
+        android:clickable="true"
+        android:src="@drawable/conversationbubble"
+        app:backgroundTint="#fff" />
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by Rhys on 2018-01-13.
@@ -18,6 +19,7 @@ public class Splash extends AppCompatActivity{
 
     private AnimationDrawable animationDrawable;
     private ImageView mProgressBar;
+    private TextView title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class Splash extends AppCompatActivity{
 
         // Set-up anything needs to be set up before running MainActivity here.
         mProgressBar = findViewById(R.id.main_progress);
+        title = findViewById(R.id.splash_appName);
+
         mProgressBar.setBackgroundResource(R.drawable.progress);
         animationDrawable = (AnimationDrawable)mProgressBar.getBackground();
         mProgressBar.setVisibility(View.VISIBLE);
@@ -42,6 +46,7 @@ public class Splash extends AppCompatActivity{
                 // Stop the animation
                 mProgressBar.setVisibility(View.GONE);
                 animationDrawable.stop();
+                title.setVisibility(View.INVISIBLE);
 
                 // Run the next activity
                 startActivity(new Intent(getBaseContext(),MainActivity.class));
