@@ -1,5 +1,6 @@
 package dashbot.teamcraps.com.dashbot;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ConversationActivity extends AppCompatActivity {
     private RecyclerView mMessageRecycler;
     private MessageListAdapter mMessageAdapter;
+    private ChatAppMsgDTO msgDto;
+    List<ChatAppMsgDTO> messageList;
+    MessageListAdapter chatAppMsgAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,8 @@ public class ConversationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
 
         // Create the initial data list.
-        final List<ChatAppMsgDTO> messageList = new ArrayList<ChatAppMsgDTO>();
-        ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, "Hello!");
+        this.messageList = new ArrayList<ChatAppMsgDTO>();
+        this.msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, "Hello!");
         messageList.add(msgDto);
 
         mMessageRecycler = findViewById(R.id.reyclerview_message_list);
@@ -32,7 +37,7 @@ public class ConversationActivity extends AppCompatActivity {
         mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         // Create the data adapter with above data list.
-        final MessageListAdapter chatAppMsgAdapter = new MessageListAdapter(this,messageList);
+        this.chatAppMsgAdapter = new MessageListAdapter(this, messageList);
 
         // Set data adapter to RecyclerView.
         mMessageRecycler.setAdapter(chatAppMsgAdapter);
@@ -45,8 +50,7 @@ public class ConversationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String msgContent = msgInputText.getText().toString();
-                if(!TextUtils.isEmpty(msgContent))
-                {
+                if (!TextUtils.isEmpty(msgContent)) {
                     // Add a new sent message to the list.
                     ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_SENT, msgContent);
                     messageList.add(msgDto);
@@ -61,26 +65,38 @@ public class ConversationActivity extends AppCompatActivity {
 
                     // Empty the input edit text box.
                     msgInputText.setText("");
-
-                    // Add a new sent message to the list.
-                    String reply;
-                    try {
-                        reply = ConversationClient.getReply(msgContent);
-                    } catch (IOException e) {
-                        reply = "Web request failed";
-                    }
-                    msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, reply);
-                    messageList.add(msgDto);
-
-                    newMsgPosition = messageList.size() - 1;
-
-                    // Notify recycler view insert one new data.
-                    chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
-
-                    // Scroll RecyclerView to the last message.
-                    mMessageRecycler.scrollToPosition(newMsgPosition);
+                    ConversationReply task = new ConversationReply();
+                    task.execute(msgContent);
                 }
             }
         });
+    }
+
+    public class ConversationReply extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String[] params) {
+            // Add a new sent message to the list.
+            String reply;
+            try {
+                reply = ConversationClient.getReply(params[0]);
+            } catch (IOException e) {
+                reply = "Web request failed";
+            }
+            return reply;
+        }
+
+        @Override
+        protected void onPostExecute(String message) {
+            msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, message);
+            messageList.add(msgDto);
+
+            int newMsgPosition = messageList.size() - 1;
+
+            // Notify recycler view insert one new data.
+            chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
+
+            // Scroll RecyclerView to the last message.
+            mMessageRecycler.scrollToPosition(newMsgPosition);
+        }
     }
 }
