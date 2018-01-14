@@ -3,4 +3,6 @@
     <string name="subscription_key">9334cc24a25e49e59b86a30096e6db91</string>
     <string name="authenticationUri">\"\"</string>
     <string name="ask_dash">Ask Dash …</string>
+    <string name="my_money">My Money</string>
+    <string name="account_savings">Savings Account</string>
 </resources>
