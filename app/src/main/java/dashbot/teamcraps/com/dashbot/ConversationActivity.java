@@ -63,21 +63,22 @@ public class ConversationActivity extends AppCompatActivity {
                     msgInputText.setText("");
 
                     // Add a new sent message to the list.
+                    String reply;
                     try {
-                        String reply = ConversationClient.getReply(msgContent);
-                        msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, reply);
-                        messageList.add(msgDto);
-
-                        newMsgPosition = messageList.size() - 1;
-
-                        // Notify recycler view insert one new data.
-                        chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
-
-                        // Scroll RecyclerView to the last message.
-                        mMessageRecycler.scrollToPosition(newMsgPosition);
+                        reply = ConversationClient.getReply(msgContent);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        reply = "Web request failed";
                     }
+                    msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, reply);
+                    messageList.add(msgDto);
+
+                    newMsgPosition = messageList.size() - 1;
+
+                    // Notify recycler view insert one new data.
+                    chatAppMsgAdapter.notifyItemInserted(newMsgPosition);
+
+                    // Scroll RecyclerView to the last message.
+                    mMessageRecycler.scrollToPosition(newMsgPosition);
                 }
             }
         });
