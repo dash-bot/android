@@ -1,3 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="NewApi">
     <string name="app_name">Dash</string>
+    <string name="subscription_key">9334cc24a25e49e59b86a30096e6db91</string>
+    <string name="authenticationUri">\"\"</string>
 </resources>
