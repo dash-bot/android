@@ -34,4 +34,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.microsoft.projectoxford:speechrecognition:1.2.2'
     compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
 }
