@@ -2,16 +2,19 @@ package dashbot.teamcraps.com.dashbot;
 
 
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpMediaType;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.MultipartContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 /**
  * Created by shaebrown on 13/01/18.
@@ -34,11 +37,16 @@ public class ConversationClient {
      * @throws IOException
      */
     public static int enroll(File wavFile) throws IOException {
-        String request_url = String.format(voice_url, "enroll");
-        MultipartContent content = new MultipartContent();
-        content.setMediaType(new HttpMediaType("multipart/form-data"));
-
-        //TODO figure out how to add wav file as form-data with key 'file'
+//        String request_url = String.format(voice_url, "enroll");
+//        MultipartContent.Part part = new MultipartContent.Part()
+//                .setContent(new InputStreamContent("wav", wavFile.))
+//                .setHeaders(new HttpHeaders().set(
+//                        "Content-Disposition",
+//                        String.format("form-data; name=\"file\"; filename=\"%s\"", wavFile.getName()) // TODO: escape fileName?
+//                ));
+//        MultipartContent content = new MultipartContent()
+//                .setMediaType(new HttpMediaType("multipart/form-data").setParameter("boundary", UUID.randomUUID().toString()))
+//                .addPart(part);
         return 3;
     }
 }
