@@ -24,7 +24,7 @@ public class ConversationActivity extends AppCompatActivity {
 
         // Create the initial data list.
         final List<ChatAppMsgDTO> messageList = new ArrayList<ChatAppMsgDTO>();
-        ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, "hello");
+        ChatAppMsgDTO msgDto = new ChatAppMsgDTO(ChatAppMsgDTO.MSG_TYPE_RECEIVED, "Hello!");
         messageList.add(msgDto);
 
         mMessageRecycler = findViewById(R.id.reyclerview_message_list);
